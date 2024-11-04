@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
   def create
     @trip = Trip.new(
-      user_id: current_user,
+      user_id: current_user.id,
       title: params[:title],
       image_url: params[:image_url],
       start_time: params[:start_time],
