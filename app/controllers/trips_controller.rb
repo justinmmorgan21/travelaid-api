@@ -15,8 +15,8 @@ class TripsController < ApplicationController
   end
 
   def index
-    # @trips = Trip.where(user_id: current_user)
-    @trips = Trip.all
+    @trips = Trip.where(user_id: current_user)
+    # @trips = Trip.all
     render :index
   end
 
