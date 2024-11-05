@@ -13,4 +13,13 @@ class UsersController < ApplicationController
       render json: { errors: user.errors.full_messages }, status: :bad_request
     end
   end
+
+  def show
+    render json: {
+      id: current_user.id,
+      name: current_user.name,
+      email: current_user.email,
+      image_url: current_user.image_url
+    }
+  end
 end
