@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
-  def create
+  # Leaving in code that could be used later if want to
+  # change new user to add image at creation time.
+  # Right now, new user will always have the default image.
+  def create 
     image = params[:image] && Cloudinary::Uploader.upload(params[:image])
     image_url = image && image['url']
-    # pp image['url']
     @user = User.new(
       name: params[:name],
       email: params[:email],
@@ -19,13 +21,12 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find_by(id: [params[:id]])
-    image = params[:image] && Cloudinary::Uploader.upload(params[:image])
+    image = params[:image] != "no-image" && Cloudinary::Uploader.upload(params[:image])
     image_url = image && image['url']
-    # pp image['url']
     @user.update(
       name: params[:name] || @user.name,
       email: params[:email] || @user.email,
-      image_url: image_url || "https://img.freepik.com/premium-vector/free-vector-user-icon-simple-line_901408-588.jpg"
+      image_url: image_url || @user.image_url || "https://img.freepik.com/premium-vector/free-vector-user-icon-simple-line_901408-588.jpg"
     )
     if @user.save!
       render json: { message: "User updated successfully" }, status: :created
@@ -37,7 +38,6 @@ class UsersController < ApplicationController
 
   def show
     render json: {
-      # message: "SUCCESS"
       id: current_user.id,
       name: current_user.name,
       email: current_user.email,
