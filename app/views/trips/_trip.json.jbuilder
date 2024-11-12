@@ -4,5 +4,8 @@ json.title trip.title
 json.image_url trip.image_url
 json.start_time trip.start_time.strftime("%B %d, %Y")
 json.end_time trip.end_time.strftime("%B %d, %Y")
-json.places trip.places, partial:
-"places/place", as: :place
+# json.places trip.places, partial:
+# "places/place", as: :place
+# 
+# Sort the places by start_date before rendering
+json.places trip.places.order(:start_time), partial: "places/place", as: :place
