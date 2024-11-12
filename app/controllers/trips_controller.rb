@@ -24,4 +24,12 @@ class TripsController < ApplicationController
     @trip = Trip.find_by(id: params[:id])
     render :show
   end
+
+  def next
+    @trips = Trip.where(user_id: current_user).order(:start_time)
+    pp @trips
+    @trip = @trips.first()
+    pp @trip
+    render :show
+  end
 end
