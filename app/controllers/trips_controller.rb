@@ -22,6 +22,9 @@ class TripsController < ApplicationController
 
   def show
     @trip = Trip.find_by(id: params[:id])
+    # pp("***********")
+    # @trip.center
+    # pp("***********")
     render :show
   end
 
