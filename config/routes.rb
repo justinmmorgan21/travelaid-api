@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   get "/trips/:id" => "trips#show"
 
   post "/places" => "places#create"
+  get "/places/:id" => "places#show"
 end
