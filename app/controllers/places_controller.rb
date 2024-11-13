@@ -22,10 +22,10 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.find_by(id: params[:id])
-    results = Geocoder.search(@place.address)
-    p "*************"
-    pp results.first.coordinates
-    p "*************"
-    # render :show
+    # results = Geocoder.search(@place.address)
+    # p "*************"
+    # pp results.first.coordinates
+    # p "*************"
+    render :show
   end
 end
