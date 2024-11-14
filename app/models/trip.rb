@@ -30,9 +30,9 @@ class Trip < ApplicationRecord
     }
     pp "Max Distance " + max_distance.to_s
     p "****************"
-
-    zoom_level = -15.29434 + (2621.371 - -15.29434)/(1 + (max_distance / "6.019254e-34".to_f) ** 0.05907069)
-    return max_distance < 1 ? 16 : zoom_level
+    zoom_level = -2.146039 + (22.86111 - -2.146039)/(1 + (max_distance/5.915623) ** 0.2311446)
+    # zoom_level = -15.29434 + (2621.371 - -15.29434)/(1 + (max_distance / "6.019254e-34".to_f) ** 0.05907069)
+    return max_distance == 0 ? 16 : zoom_level
     # 0.00015388678755598 * max_distance ** 2 - 0.12534948389316 * max_distance + 11.482425279053
   end
 
