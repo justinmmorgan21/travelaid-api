@@ -25,7 +25,7 @@ class TripsController < ApplicationController
     # pp("***********")
     # @trip.center
     # pp("***********")
-    @trip.initial_zoom
+    # @trip.initial_zoom
     render :show
   end
 
