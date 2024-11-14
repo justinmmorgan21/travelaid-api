@@ -36,4 +36,14 @@ class Trip < ApplicationRecord
     # 0.00015388678755598 * max_distance ** 2 - 0.12534948389316 * max_distance + 11.482425279053
   end
 
+  def start_time_converted
+    result = (start_time && start_time.strftime("%B %d, %Y")) || nil
+    return result
+  end
+
+  def end_time_converted
+    result = (end_time && end_time.strftime("%B %d, %Y")) || nil
+    return result
+  end
+
 end
