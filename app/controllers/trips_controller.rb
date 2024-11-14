@@ -38,4 +38,9 @@ class TripsController < ApplicationController
       render json: {}
     end
   end
+
+  def suggested
+    @trips = Trip.where(user_id: 13)
+    render :index
+  end
 end
