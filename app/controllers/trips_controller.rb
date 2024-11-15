@@ -40,7 +40,8 @@ class TripsController < ApplicationController
   end
 
   def suggested
-    @trips = Trip.where(user_id: 13)
+    admin_id = User.find_by(name: "admin")
+    @trips = Trip.where(user_id: admin_id)
     render :index
   end
 end
