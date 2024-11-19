@@ -40,6 +40,20 @@ class PlacesController < ApplicationController
       render json: { errors: user.errors.full_messages }, status: :bad_request
     end
   end
+
+  def update
+    @place = Place.find_by(id: params[:id])
+    if @place
+      @place.start_time = params[:start_time] || @place.start_time
+      if @place.save!
+        render :show
+      else
+        render json: {error: @place.errors.full_messages}, status: :unprocessable_entity
+      end
+    else
+      render json: { error: "Place not found" }, status: :not_found
+    end
+  end
 end
 
 
