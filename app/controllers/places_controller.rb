@@ -31,6 +31,15 @@ class PlacesController < ApplicationController
     @place = Place.find_by(id: params[:id])
     render :show
   end
+
+  def destroy
+    @place = Place.find_by(id: params[:id])
+    if @place.destroy
+      render json: { message: @place.name + " destroyed successfully" }, status: :created
+    else
+      render json: { errors: user.errors.full_messages }, status: :bad_request
+    end
+  end
 end
 
 
