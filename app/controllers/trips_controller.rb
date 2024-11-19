@@ -24,6 +24,24 @@ class TripsController < ApplicationController
     render :show
   end
 
+  def update
+    @trip = Trip.find_by(id: params[:id])
+    if @trip
+      @trip.title = params[:title] || @trip.title,
+      @trip.image_url = params[:image_url] || @trip.image_url,
+      @trip.start_time = params[:start_time] || @trip.start_time,
+      @trip.end_time = params[:end_time] || @trip.end_time,
+      
+      if @trip.save
+        render :show
+      else
+        render json: {error: @trip.errors.full_messages}, status: :unprocessable_entity
+      end
+    else
+      render json: { error: "Trip not found" }, status: :not_found
+    end
+  end
+
   def next
     @trips = Trip.where(user_id: current_user).order(:start_time)
     @trip = @trips && @trips.first() || nil

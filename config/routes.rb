@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get "/trips/next" => "trips#next"
   get "/trips/suggested" => "trips#suggested"
   get "/trips/:id" => "trips#show"
+  patch "/trips/:id" => "trips#update"
 
   post "/places" => "places#create"
   get "/places/:id" => "places#show"
