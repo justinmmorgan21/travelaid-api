@@ -16,16 +16,11 @@ class TripsController < ApplicationController
 
   def index
     @trips = Trip.where(user_id: current_user)
-    # @trips = Trip.all
     render :index
   end
 
   def show
     @trip = Trip.find_by(id: params[:id])
-    # pp("***********")
-    # @trip.center
-    # pp("***********")
-    # @trip.initial_zoom
     render :show
   end
 
