@@ -1,0 +1,15 @@
+json.id leg.id
+json.flight_id leg.flight_id
+json.airline leg.airline
+json.airline_logo leg.airline_logo
+json.airplane leg.airplane
+json.departure_airport_id leg.departure_airport_id
+json.departure_airport_name leg.departure_airport_name
+json.departure_airport_time leg.departure_airport_time
+json.departure_airport_city leg.departure_airport_city
+json.arrival_airport_id leg.arrival_airport_id
+json.arrival_airport_name leg.arrival_airport_name
+json.arrival_airport_time leg.arrival_airport_time
+json.arrival_airport_city leg.arrival_airport_city
+json.duration leg.duration
+json.flight_number leg.flight_number

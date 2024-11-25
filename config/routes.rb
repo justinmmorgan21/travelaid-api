@@ -25,4 +25,10 @@ Rails.application.routes.draw do
   get "/places/:id" => "places#show"
   delete "/places/:id" => "places#destroy"
   patch "/places/:id" => "places#update"
+
+  post "/flights" => "flights#create"
+  
+  post "/legs" => "legs#create"
+
+  post "/layovers" => "layovers#create"
 end

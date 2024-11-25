@@ -3,6 +3,7 @@ class Trip < ApplicationRecord
 
   belongs_to :user
   has_many :places
+  has_many :flights
 
   def center
     lat_sum = places.sum { |place|

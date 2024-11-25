@@ -8,3 +8,4 @@ json.end_time trip.end_time_converted
 json.places trip.places.order(:start_time), partial: "places/place", as: :place
 json.center trip.center
 json.initial_zoom trip.initial_zoom
+json.flights trip.flights, partial: "flights/flight", as: :flight
