@@ -10,9 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_13_031903) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_25_024145) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "flights", force: :cascade do |t|
+    t.integer "trip_id"
+    t.string "direction"
+    t.string "total_duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "layovers", force: :cascade do |t|
+    t.integer "flight_id"
+    t.string "duration"
+    t.string "airport_id"
+    t.string "airport_name"
+    t.string "airport_city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "legs", force: :cascade do |t|
+    t.integer "flight_id"
+    t.string "airline"
+    t.string "airline_logo"
+    t.string "airplane"
+    t.string "departure_airport_id"
+    t.string "departure_airport_name"
+    t.string "departure_airport_time"
+    t.string "departure_airport_city"
+    t.string "arrival_airport_id"
+    t.string "arrival_airport_name"
+    t.string "arrival_airport_time"
+    t.string "arrival_airport_city"
+    t.string "duration"
+    t.string "flight_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "places", force: :cascade do |t|
     t.integer "trip_id"

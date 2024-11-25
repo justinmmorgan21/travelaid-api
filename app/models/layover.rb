@@ -1,0 +1,2 @@
+class Layover < ApplicationRecord
+end
