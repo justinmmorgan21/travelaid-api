@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_25_080315) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_25_214718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_080315) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "leg_number"
+    t.string "departure_day"
+    t.string "arrival_day"
   end
 
   create_table "places", force: :cascade do |t|
@@ -74,6 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_080315) do
     t.datetime "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "flight_booked"
   end
 
   create_table "users", force: :cascade do |t|

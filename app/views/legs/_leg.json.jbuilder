@@ -1,5 +1,6 @@
 json.id leg.id
 json.flight_id leg.flight_id
+json.leg_number leg.leg_number
 json.airline leg.airline
 json.airline_logo leg.airline_logo
 json.airplane leg.airplane
@@ -13,3 +14,5 @@ json.arrival_airport_time leg.arrival_airport_time
 json.arrival_airport_city leg.arrival_airport_city
 json.duration leg.duration
 json.flight_number leg.flight_number
+json.departure_day leg.departure_day
+json.arrival_day leg.arrival_day

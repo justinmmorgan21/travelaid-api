@@ -27,11 +27,11 @@ class TripsController < ApplicationController
   def update
     @trip = Trip.find_by(id: params[:id])
     if @trip
-      @trip.title = params[:title] || @trip.title,
-      @trip.image_url = params[:image_url] || @trip.image_url,
-      @trip.start_time = params[:start_time] || @trip.start_time,
-      @trip.end_time = params[:end_time] || @trip.end_time,
-      
+      @trip.title = params[:title] || @trip.title
+      @trip.image_url = params[:image_url] || @trip.image_url
+      @trip.start_time = params[:start_time] || @trip.start_time
+      @trip.end_time = params[:end_time] || @trip.end_time
+      @trip.flight_booked = params[:flight_booked] || @trip.flight_booked
       if @trip.save
         render :show
       else
