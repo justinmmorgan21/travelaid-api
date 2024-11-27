@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "/trips" => "trips#index"
   get "/trips/next" => "trips#next"
   get "/trips/suggested" => "trips#suggested"
+  get "/trips/past" => "trips#past"
   get "/trips/:id" => "trips#show"
   patch "/trips/:id" => "trips#update"
 
