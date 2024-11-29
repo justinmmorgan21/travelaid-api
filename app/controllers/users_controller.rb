@@ -44,5 +44,10 @@ class UsersController < ApplicationController
       image_url: current_user.image_url
     }
   end
+
+  def index
+    @users = User.all
+    render :index
+  end
 end
 

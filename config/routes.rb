@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   
   post "/users" => "users#create"
   get "/users/current" => "users#show"
+  get "/users" => "users#index"
   patch "/users/:id" => "users#update"
   
   post "/sessions" => "sessions#create"
