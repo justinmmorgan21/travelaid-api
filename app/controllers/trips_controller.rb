@@ -6,6 +6,7 @@ class TripsController < ApplicationController
       image_url: params[:image_url],
       start_time: params[:start_time],
       end_time: params[:end_time],
+      flight_booked: false
     )
     if @trip.save
       render :show
