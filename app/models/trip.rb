@@ -24,7 +24,7 @@ class Trip < ApplicationRecord
       dist = Geocoder::Calculations.distance_between([place.lat,place.lng], curr_center)
       dist > max_distance ? dist : max_distance
     }
-    # calculation based on 4 different max distances with their associated zoom level
+    # custom function based on 4 different max distances with their associated zoom level
     zoom_level = -2.146039 + (22.86111 - -2.146039)/(1 + (max_distance/5.915623) ** 0.2311446)
     return max_distance == 0 ? 16 : zoom_level
   end

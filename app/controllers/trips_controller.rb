@@ -16,7 +16,9 @@ class TripsController < ApplicationController
 
   def index
     @trips = Trip.where(user_id: current_user, end_time: Time.now... ).order(:start_time)
-    render :index
+    respond_to do |format|
+      format.json { render :index }
+    end
   end
 
   def show
@@ -43,7 +45,7 @@ class TripsController < ApplicationController
   end
 
   def next
-    @trips = Trip.where(user_id: current_user, end_time: Time.now...).order(:start_time)
+    @trips = Trip.where(user_id: current_user.id, end_time: Time.now...).order(:start_time)
     @trip = @trips && @trips.first() || nil
     if @trip
       render :show
@@ -59,7 +61,7 @@ class TripsController < ApplicationController
   end
 
   def past
-    @trips = Trip.where(user_id: current_user, end_time: ...Time.now)
+    @trips = Trip.where(user_id: current_user.id, end_time: ...Time.now)
     render :index
   end
 end

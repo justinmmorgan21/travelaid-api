@@ -6,7 +6,6 @@ class PlacesController < ApplicationController
     url = URI("https://maps.googleapis.com/maps/api/geocode/json?address=#{CGI::escape(params[:address])}&key=#{api_key}")
     response = Net::HTTP.get(url)
     json = JSON.parse(response)
-    pp json["results"][0]["geometry"]["location"]
     coords = json["results"][0]["geometry"]["location"]
     
     @place = Place.new(
