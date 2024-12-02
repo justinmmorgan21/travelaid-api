@@ -45,7 +45,7 @@ class TripsController < ApplicationController
   end
 
   def next
-    @trips = Trip.where(user_id: current_user.id, end_time: Time.now...).order(:start_time)
+    @trips = current_user && Trip.where(user_id: current_user.id, end_time: Time.now...).order(:start_time)
     @trip = @trips && @trips.first() || nil
     if @trip
       render :show
