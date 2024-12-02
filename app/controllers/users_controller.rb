@@ -31,12 +31,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: {
-      id: current_user.id,
-      name: current_user.name,
-      email: current_user.email,
-      image_url: current_user.image_url
-    }
+    if current_user
+      render json: {
+        id: current_user.id,
+        name: current_user.name,
+        email: current_user.email,
+        image_url: current_user.image_url
+      }
+    else
+      render json: { message: "No user signed in" }, status: :bad_request
+    end
   end
 
   def index
