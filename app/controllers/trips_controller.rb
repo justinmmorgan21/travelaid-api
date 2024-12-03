@@ -69,7 +69,7 @@ class TripsController < ApplicationController
   def destroy
     @trip = Trip.find_by(id: params[:id])
     if @trip.destroy
-      render json: { message: @trip.name + " destroyed successfully" }, status: :created
+      render json: { message: @trip.title + " destroyed successfully" }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :bad_request
     end
