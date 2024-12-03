@@ -15,9 +15,10 @@ class TripsController < ApplicationController
   end
 
   def index
-    @trips = Trip.where(user_id: current_user, end_time: Time.now... ).order(:start_time)
+    @trips = Trip.where(user_id: current_user, end_time: Time.now...).order(:start_time)
     respond_to do |format|
       format.json { render :index }
+      format.html { render plain: "This endpoint only supports JSON." }
     end
   end
 
