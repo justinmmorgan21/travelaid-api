@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find_by(id: [params[:id]])
     image = params[:image] != "no-image" && Cloudinary::Uploader.upload(params[:image])
-    image_url = image && image['url']
+    image_url = image && image['secure_url']
     @user.update(
       name: params[:name] || @user.name,
       email: params[:email] || @user.email,

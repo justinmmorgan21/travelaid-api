@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get "/trips/past" => "trips#past"
   get "/trips/:id" => "trips#show"
   patch "/trips/:id" => "trips#update"
+  delete "/trips/:id" => "trips#destroy"
 
   post "/places" => "places#create"
   get "/places/:id" => "places#show"

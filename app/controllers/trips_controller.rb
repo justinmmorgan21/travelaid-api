@@ -65,4 +65,13 @@ class TripsController < ApplicationController
     @trips = Trip.where(user_id: current_user.id, end_time: ...Time.now)
     render :index
   end
+
+  def destroy
+    @trip = Trip.find_by(id: params[:id])
+    if @trip.destroy
+      render json: { message: @trip.name + " destroyed successfully" }, status: :created
+    else
+      render json: { errors: user.errors.full_messages }, status: :bad_request
+    end
+  end
 end
