@@ -6,6 +6,32 @@ class Trip < ApplicationRecord
   has_many :flights
 
   def center
+    if places.length == 0
+      api_key = ENV['GOOGLE_MAPS_API_KEY']
+      url = URI("https://maps.googleapis.com/maps/api/geocode/json?address=#{CGI::escape(title)}&key=#{api_key}")
+      response = Net::HTTP.get(url)
+      json = JSON.parse(response)
+      results = json["results"]
+      if results.length == 0
+        url = URI("https://maps.googleapis.com/maps/api/geocode/json?address=#{title.gsub(' ', '')}&key=#{api_key}")
+        response = Net::HTTP.get(url)
+        json = JSON.parse(response)
+        results = json["results"]
+      end
+      coords = results[0]["geometry"]["location"]
+      place = Place.new(
+        trip_id: 0,
+        address: nil,
+        name: nil,
+        description: nil,
+        image_url: nil,
+        start_time: nil,
+        end_time: nil,
+        lat: coords["lat"],
+        lng: coords["lng"]
+      )
+      places << place
+    end
     lat_sum = places.sum { |place|
       place[:lat]
     }
