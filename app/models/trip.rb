@@ -12,25 +12,27 @@ class Trip < ApplicationRecord
       response = Net::HTTP.get(url)
       json = JSON.parse(response)
       results = json["results"]
-      if results.length == 0
+      if results.empty?
         url = URI("https://maps.googleapis.com/maps/api/geocode/json?address=#{title.gsub(' ', '')}&key=#{api_key}")
         response = Net::HTTP.get(url)
         json = JSON.parse(response)
         results = json["results"]
       end
-      coords = results[0]["geometry"]["location"]
-      place = Place.new(
-        trip_id: 0,
-        address: nil,
-        name: nil,
-        description: nil,
-        image_url: nil,
-        start_time: nil,
-        end_time: nil,
-        lat: coords["lat"],
-        lng: coords["lng"]
-      )
-      places << place
+      if !results.empty?
+        coords = results[0]["geometry"]["location"]
+        place = Place.new(
+          trip_id: 0,
+          address: nil,
+          name: nil,
+          description: nil,
+          image_url: nil,
+          start_time: nil,
+          end_time: nil,
+          lat: coords["lat"],
+          lng: coords["lng"]
+        )
+        places << place
+      end
     end
     lat_sum = places.sum { |place|
       place[:lat]
