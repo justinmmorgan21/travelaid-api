@@ -5,49 +5,43 @@ class Trip < ApplicationRecord
   has_many :places
   has_many :flights
 
-  def center
-    if places.length == 0
+  def update_center
+    if places.empty?
       api_key = ENV['GOOGLE_MAPS_API_KEY']
+      puts "***************"
+      puts "***************"
+      puts "GEOCODE 1"
+      puts "***************"
+      puts "***************"
       url = URI("https://maps.googleapis.com/maps/api/geocode/json?address=#{CGI::escape(title)}&key=#{api_key}")
       response = Net::HTTP.get(url)
       json = JSON.parse(response)
       results = json["results"]
       if results.empty?
+        puts "***************"
+        puts "***************"
+        puts "GEOCODE 2"
+        puts "***************"
+        puts "***************"
         url = URI("https://maps.googleapis.com/maps/api/geocode/json?address=#{title.gsub(' ', '')}&key=#{api_key}")
         response = Net::HTTP.get(url)
         json = JSON.parse(response)
         results = json["results"]
       end
-      if !results.empty?
+      if results.any?
         coords = results[0]["geometry"]["location"]
-        place = Place.new(
-          trip_id: 0,
-          address: nil,
-          name: nil,
-          description: nil,
-          image_url: nil,
-          start_time: nil,
-          end_time: nil,
-          lat: coords["lat"],
-          lng: coords["lng"]
-        )
-        places << place
+        return [coords["lat"], coords["lng"]]
       end
+    else
+      avg_lat = places.average(:lat) || 0
+      avg_lng = places.average(:lng) || 0
+      return [avg_lat, avg_lng]
     end
-    lat_sum = places.sum { |place|
-      place[:lat]
-    }
-    avg_lat = lat_sum / (places.count == 0 ? 1 : places.count)
-    lng_sum = places.sum { |place|
-      place[:lng]
-    }
-    avg_lng = lng_sum / (places.count == 0 ? 1 : places.count)
-    [avg_lat, avg_lng]
   end
 
   # calculate longest distance and make a conversion to a zoom factor for frontend map
   def initial_zoom
-    curr_center = center
+    curr_center = [lat, lng]
     max_distance = places.reduce(0){|max_distance, place| 
       dist = Geocoder::Calculations.distance_between([place.lat,place.lng], curr_center)
       dist > max_distance ? dist : max_distance

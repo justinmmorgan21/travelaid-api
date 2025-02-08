@@ -8,6 +8,8 @@ class TripsController < ApplicationController
       end_time: params[:end_time],
     )
     if @trip.save
+      lat, lng = @trip.update_center
+      @trip.update(lat: lat, lng: lng)
       render :show
     else
       render json: {error: @trip.errors.full_messages}, status: :unprocessable_entity
@@ -36,6 +38,8 @@ class TripsController < ApplicationController
       @trip.end_time = params[:end_time] || @trip.end_time
       @trip.flight_booked = params[:flight_booked] || @trip.flight_booked
       if @trip.save
+        lat, lng = @trip.update_center
+        @trip.update(lat: lat, lng: lng)
         render :show
       else
         render json: {error: @trip.errors.full_messages}, status: :unprocessable_entity

@@ -20,6 +20,9 @@ class PlacesController < ApplicationController
       lng: coords["lng"]
     )
     if @place.save
+      @trip = Trip.find_by(id: params[:trip_id])
+      lat, lng = @trip.update_center
+      @trip.update(lat: lat, lng: lng)
       render :show
     else
       render json: {error: @place.errors.full_messages}, status: :unprocessable_entity
@@ -33,7 +36,11 @@ class PlacesController < ApplicationController
 
   def destroy
     @place = Place.find_by(id: params[:id])
+    trip_id = @place.trip_id
     if @place.destroy
+      @trip = Trip.find_by(id: trip_id)
+      lat, lng = @trip.update_center
+      @trip.update(lat: lat, lng: lng)
       render json: { message: @place.name + " destroyed successfully" }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :bad_request
