@@ -6,8 +6,9 @@ class PlacesController < ApplicationController
     url = URI("https://maps.googleapis.com/maps/api/geocode/json?address=#{CGI::escape(params[:address])}&key=#{api_key}")
     response = Net::HTTP.get(url)
     json = JSON.parse(response)
-    coords = json["results"][0]["geometry"]["location"]
-    
+    coords = json["results"][0] && json["results"][0]["geometry"]["location"]
+    invalid_address = coords == nil
+
     @place = Place.new(
       trip_id: params[:trip_id],
       address: params[:address],
@@ -16,13 +17,12 @@ class PlacesController < ApplicationController
       image_url: params[:image_url],
       start_time: params[:start_time],
       end_time: params[:end_time],
-      lat: coords["lat"],
-      lng: coords["lng"]
+      lat: coords && coords["lat"] || nil,
+      lng: coords && coords["lng"] || nil
     )
     if @place.save
       @trip = Trip.find_by(id: params[:trip_id])
-      lat, lng = @trip.update_center
-      @trip.update(lat: lat, lng: lng)
+      @trip.update_center(invalid_address, @place.id)
       render :show
     else
       render json: {error: @place.errors.full_messages}, status: :unprocessable_entity
@@ -39,8 +39,7 @@ class PlacesController < ApplicationController
     trip_id = @place.trip_id
     if @place.destroy
       @trip = Trip.find_by(id: trip_id)
-      lat, lng = @trip.update_center
-      @trip.update(lat: lat, lng: lng)
+      @trip.update_center(nil, -1)
       render json: { message: @place.name + " destroyed successfully" }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :bad_request
